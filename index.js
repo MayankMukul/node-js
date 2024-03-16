@@ -2,7 +2,22 @@ const express = require('express');
 
 const server = express();
 
-server.get("/", (req, res) => {
+server.use((req,res,next)=>{
+    console.log(req.method, req.ip, new Date())
+    next()
+})
+
+const auth = ((req,res,next)=>{
+    console.log(req.query.password)
+
+    if(req.query.password=="123"){
+        next();
+    } else {
+        res.sendStatus(401);
+    }
+})
+
+server.get("/",auth, (req, res) => {
     res.json({type: "GET"});
 });
 
@@ -22,9 +37,9 @@ server.patch('/', (req, res) =>{
     res.json({type: "PATCH"});
 });
 
-server.get('/demo',(req,res)=>{
-    res.send("<h1>hello<h1/>");
-})
+// server.get('/demo',(req,res)=>{
+//     res.send("<h1>hello<h1/>");
+// })
 
 
 server.listen(8080,()=>{
