@@ -1,14 +1,20 @@
 const express = require('express');
+const morgan = require('morgan');
 
 const server = express();
 //built-in middleware
-server.use(express.json())
+// server.use(express.json())
+
+server.use(morgan('default'));
+
+//static hoisting
+server.use(express.static('public'));
 
 server.use((req,res,next)=>{
-    console.log(req.method, req.ip, new Date())
+    // console.log(req.method, req.ip, new Date())
     next()
 })
-
+//setting authentication on body
 const auth = ((req,res,next)=>{
     console.log(req.body.password)
 
@@ -20,6 +26,7 @@ const auth = ((req,res,next)=>{
 })
 
 // setting authentication on url query
+
 // const auth = ((req,res,next)=>{
 //     console.log(req.query.password)
 
@@ -29,6 +36,12 @@ const auth = ((req,res,next)=>{
 //         res.sendStatus(401);
 //     }
 // })
+
+server.get("/product/:id", (req, res) => {
+    //url parameter
+    console.log(req.params);
+    res.json({type: "GET"});
+});
 
 server.get("/",auth, (req, res) => {
     res.json({type: "GET"});
