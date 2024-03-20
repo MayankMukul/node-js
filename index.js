@@ -1,11 +1,14 @@
+
 const express = require('express');
 const morgan = require('morgan');
-
+const fs = require("fs");
+const productdata = JSON.parse(fs.readFileSync( "data.json"));
 const server = express();
 //built-in middleware
 // server.use(express.json())
 
-server.use(morgan('default'));
+//body parser
+// server.use(morgan('default'));
 
 //static hoisting
 server.use(express.static('public'));
@@ -37,10 +40,14 @@ const auth = ((req,res,next)=>{
 //     }
 // })
 
-server.get("/product/:id", (req, res) => {
-    //url parameter
-    console.log(req.params);
-    res.json({type: "GET"});
+server.get("/products", (req, res) => {
+    res.json(productdata);
+});
+
+server.get("/products/:id", (req, res) => {
+    const id = +req.params.id;
+    const product = productdata.find(p=> p.id===id);
+    res.json(product);
 });
 
 server.get("/",auth, (req, res) => {
