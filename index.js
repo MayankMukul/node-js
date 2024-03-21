@@ -5,7 +5,7 @@ const fs = require("fs");
 const productdata = JSON.parse(fs.readFileSync( "data.json"));
 const server = express();
 //built-in middleware
-// server.use(express.json())
+server.use(express.json())
 
 //body parser
 // server.use(morgan('default'));
@@ -58,8 +58,23 @@ server.post('/', (req, res) =>{
     res.json({type: "POST"});
 });
 
+server.post('/product', (req, res) =>{
+    // console.log(req.body);
+    productdata.push(req.body);
+    res.json(req.body);
+});
+
 server.put('/', (req, res) =>{
     res.json({type: "PUT"});
+});
+
+server.put('/products/:id', (req, res) =>{
+    const id = +req.params.id;
+    const productindex = productdata.findIndex(p=> p.id===id);
+
+    productdata.splice(productindex,1,{...req.body, id:id})
+    
+    res.status(201).json({type: "PUT"});
 });
 
 server.delete('/', (req, res) =>{
