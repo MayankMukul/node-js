@@ -74,15 +74,33 @@ server.put('/products/:id', (req, res) =>{
 
     productdata.splice(productindex,1,{...req.body, id:id})
     
-    res.status(201).json({type: "PUT"});
+    res.json({type: "PUT"});
+});
+
+server.patch('/', (req, res) =>{
+    res.json({type: "PATCH"});
+});
+
+server.patch('/products/:id', (req, res) =>{
+    const id = +req.params.id;
+    const productindex = productdata.findIndex(p=> p.id===id);
+    let tempProduct = productdata[productindex];
+    productdata.splice(productindex,1,{...tempProduct,...req.body})
+    
+    res.json({type: "PATCH"});
 });
 
 server.delete('/', (req, res) =>{
     res.json({type: "DELETE"});
 });
 
-server.patch('/', (req, res) =>{
-    res.json({type: "PATCH"});
+server.delete('/products/:id', (req, res) =>{
+    const id = +req.params.id;
+    const productindex = productdata.findIndex(p=> p.id===id);
+    let tempProduct = productdata[productindex];
+    productdata.splice(productindex,1)
+    
+    res.json(tempProduct);
 });
 
 // server.get('/demo',(req,res)=>{
