@@ -4,10 +4,13 @@ const morgan = require('morgan');
 const fs = require("fs");
 const productdata = JSON.parse(fs.readFileSync( "data.json"));
 const productController = require('./controller/product.js');
+const productRouter = express.Router();
 
 const server = express();
 //built-in middleware
 server.use(express.json())
+
+server.use('/',productRouter);
 
 //body parser
 // server.use(morgan('default'));
@@ -43,13 +46,14 @@ const auth = ((req,res,next)=>{
 // })
 
 
-
-server.get("/products", productController.getAllProducts);
-server.get("/products/:id", productController.getProduct);
-server.post('/product', productController.addProduct);
-server.put('/products/:id', productController.replaceProduct );
-server.patch('/products/:id', productController.updateProduct);
-server.delete('/products/:id', productController.deleteProduct);
+// Model-View-Controller (MVC)f
+productRouter
+  .get("/products", productController.getAllProducts)
+  .get("/products/:id", productController.getProduct)
+  .post("/product", productController.addProduct)
+  .put("/products/:id", productController.replaceProduct)
+  .patch("/products/:id", productController.updateProduct)
+  .delete("/products/:id", productController.deleteProduct);
 
 server.get("/",auth, (req, res) => {
     res.json({type: "GET"});
