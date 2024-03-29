@@ -26,12 +26,12 @@ const auth = ((req,res,next)=>{
 // })
 
 router
-  .get("/products", productController.getAllProducts)
-  .get("/products/:id", productController.getProduct)
-  .post("/product", productController.addProduct)
-  .put("/products/:id", productController.replaceProduct)
-  .patch("/products/:id", productController.updateProduct)
-  .delete("/products/:id", productController.deleteProduct)
+  .get("/", productController.getAllProducts)
+  .get("/:id", productController.getProduct)
+  .post("/", productController.addProduct)
+  .put("/:id", productController.replaceProduct)
+  .patch("/:id", productController.updateProduct)
+  .delete("/:id", productController.deleteProduct)
 
   .get("/",auth,  (req, res) => {
     res.json({ type: "GET" });
