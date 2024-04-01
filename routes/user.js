@@ -1,15 +1,15 @@
 const express = require('express');
-const userController = require('../controller/product');
+const userController = require('../controller/user');
 const router = express.Router();
 
 
 router
-  .get("/", userController.getAllProducts)
-  .get("/:id", userController.getProduct)
-  .post("/", userController.addProduct)
-  .put("/:id", userController.replaceProduct)
-  .patch("/:id", userController.updateProduct)
-  .delete("/:id", userController.deleteProduct)
+  .get("/", userController.getAllUsers)
+  .get("/:id", userController.getUser)
+  .post("/", userController.addUser)
+  .put("/:id", userController.replaceUser)
+  .patch("/:id", userController.updateUser)
+  .delete("/:id", userController.deleteUser)
 
 
 exports.router = router;
