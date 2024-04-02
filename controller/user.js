@@ -10,8 +10,8 @@ exports.getAllUsers = (req, res) => {
 
 exports.getUser = (req, res) => {
   const id = +req.params.id;
-  const product = userdata.find((p) => p.id === id);
-  res.json(product);
+  const user = userdata.find((p) => p.id === id);
+  res.json(user);
 };
 
 exports.addUser = (req, res) => {
@@ -22,27 +22,27 @@ exports.addUser = (req, res) => {
 
 exports.replaceUser = (req, res) => {
   const id = +req.params.id;
-  const productindex = userdata.findIndex((p) => p.id === id);
+  const userIndex = userdata.findIndex((p) => p.id === id);
 
-  userdata.splice(productindex, 1, { ...req.body, id: id });
+  userdata.splice(userIndex, 1, { ...req.body, id: id });
 
   res.json({ type: "PUT" });
 };
 
 exports.updateUser = (req, res) => {
   const id = +req.params.id;
-  const productindex = userdata.findIndex((p) => p.id === id);
-  let tempProduct = data[productindex];
-  userdata.splice(productindex, 1, { ...tempProduct, ...req.body });
+  const userindex = userdata.findIndex((p) => p.id === id);
+  let tempProduct = data[userindex];
+  userdata.splice(userindex, 1, { ...tempProduct, ...req.body });
 
   res.json({ type: "PATCH" });
 };
 
 exports.deleteUser = (req, res) => {
   const id = +req.params.id;
-  const productindex = userdata.findIndex((p) => p.id === id);
-  let tempProduct = userdata[productindex];
-  userdata.splice(productindex, 1);
+  const userindex = userdata.findIndex((p) => p.id === id);
+  let tempProduct = userdata[userindex];
+  userdata.splice(userindex, 1);
 
   res.json(tempProduct);
 };

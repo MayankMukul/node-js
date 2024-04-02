@@ -1,6 +1,8 @@
 
 const fs = require("fs");
-const productdata = JSON.parse(fs.readFileSync( "data.json"));
+const data = JSON.parse(fs.readFileSync( "data.json"));
+const productdata = data.products;
+// console.log(productdata)
 
 exports.getAllProducts = (req, res) => {
   res.json(productdata);
@@ -30,7 +32,7 @@ exports.replaceProduct = (req, res) => {
 exports.updateProduct = (req, res) => {
   const id = +req.params.id;
   const productindex = productdata.findIndex((p) => p.id === id);
-  let tempProduct = productdata[productindex];
+  let tempProduct = data[productindex];
   productdata.splice(productindex, 1, { ...tempProduct, ...req.body });
 
   res.json({ type: "PATCH" });
