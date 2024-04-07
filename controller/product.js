@@ -4,6 +4,27 @@ const data = JSON.parse(fs.readFileSync( "data.json"));
 const productdata = data.products;
 // console.log(productdata)
 
+//mongoose
+const model = require('../model/product');
+const Product = model.Product;
+
+exports.addProduct = async (req, res) => {
+  const product = new Product();
+  product.title = "Newly added product";
+  product.description = "Newly added product";
+  product.brand = "Newly added product";
+  product.category = "Newly added product";
+  product.images = ["Newly added product"];
+  product.price = 999;
+  product.rating = 5;
+  product.discountPercentage = 5;
+  await product.save().then((doc)=>{
+    console.log(doc)
+  }).catch(err=>{console.error(err)});
+  
+  res.json(req.body);
+};
+
 exports.getAllProducts = (req, res) => {
   res.json(productdata);
 };
@@ -14,11 +35,6 @@ exports.getProduct = (req, res) => {
   res.json(product);
 };
 
-exports.addProduct = (req, res) => {
-  // console.log(req.body);
-  productdata.push(req.body);
-  res.json(req.body);
-};
 
 exports.replaceProduct = (req, res) => {
   const id = +req.params.id;
