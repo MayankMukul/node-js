@@ -20,9 +20,9 @@ exports.addProduct = async (req, res) => {
   product.discountPercentage = 5;
   await product.save().then((doc)=>{
     console.log(doc)
+    res.json(doc);
   }).catch(err=>{console.error(err)});
   
-  res.json(req.body);
 };
 
 exports.getAllProducts = (req, res) => {

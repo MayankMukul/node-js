@@ -9,7 +9,7 @@ const productSchema = new Schema({
   rating : Number,
   brand: String,
   category : String,
-  images : [String]
+  images : [String],
 });
 
-exports.product =  mongoose.model('Product', productSchema);
+exports.Product =  mongoose.model('Product', productSchema);
