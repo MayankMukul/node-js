@@ -49,24 +49,30 @@ exports.replaceProduct = async (req, res) => {
 
 };
 
+//update
 exports.updateProduct = async (req, res) => {
   const id = req.params.id;
   
-  await Product.findOneAndUpdate({_id:id},res.body,{new:true}).then((doc)=>{
-    console.log(doc);
+  await Product.findOneAndUpdate({_id:id},req.body,{new:true}).then((doc)=>{
+    // console.log(doc);
     res.json(doc);
   }).catch((err)=>{
-    console.log(err);
+    // console.log(err);
     res.json(err);
   })
  
 };
 
-exports.deleteProduct = (req, res) => {
-  const id = +req.params.id;
-  const productindex = productdata.findIndex((p) => p.id === id);
-  let tempProduct = productdata[productindex];
-  productdata.splice(productindex, 1);
+//delete
+exports.deleteProduct = async (req, res) => {
+  const id = req.params.id;
+  
+  await Product.findOneAndDelete({_id:id}).then((doc)=>{
+    console.log(doc);
+    res.json(doc);
+  }).catch((err)=>{
+    console.log(err);
+    res.json(err);
+  });
 
-  res.json(tempProduct);
 };
