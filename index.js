@@ -3,8 +3,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
+require("dotenv").config();
+console.log(process.env.DB_PASSWORD);
 
-// OA0zkU855YSApQcD
+// 
 //password
 const productRouter = require('./routes/product.js')
 const userRouter = require('./routes/user.js')
@@ -41,6 +43,6 @@ server.use((req,res,next)=>{
 
 
 
-server.listen(8080,()=>{
+server.listen(process.env.PORT,()=>{
     console.log("server started");
 })
