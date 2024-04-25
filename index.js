@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
 require("dotenv").config();
-console.log(process.env.DB_PASSWORD);
 
 // 
 //password
@@ -14,7 +13,7 @@ const userRouter = require('./routes/user.js')
 main().catch(err => console.log(err));
 
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/node_ecommerce');
+  await mongoose.connect(process.env.DB_MONGO_URL);
 console.log("Connected to MongoDB successfully!");
   }
 
