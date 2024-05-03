@@ -3,7 +3,7 @@ const fs = require('fs');
 
 const index = fs.readFileSync("index.html",'utf-8');
 const productPage = fs.readFileSync("product.html",'utf-8');
-const data = JSON.parse(fs.readFileSync( "data.json"));
+const data = JSON.parse(fs.readFileSync(  path.resolve(__dirname,"data.json")));
 const products = data.products;
 
 
