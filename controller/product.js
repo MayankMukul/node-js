@@ -1,7 +1,7 @@
 
 const fs = require("fs");
 const path = require('path');
-const data = JSON.parse(fs.readFileSync( path.resolve(__dirname,"data.json")));
+const data = JSON.parse(fs.readFileSync( path.resolve(__dirname,"../data.json")));
 const productdata = data.products;
 // console.log(productdata)
 
