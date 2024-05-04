@@ -1,5 +1,7 @@
 const http = require('http');
 const fs = require('fs');
+const path = require('path');
+
 
 const index = fs.readFileSync("index.html",'utf-8');
 const productPage = fs.readFileSync("product.html",'utf-8');
