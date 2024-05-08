@@ -3,6 +3,8 @@ const fs = require("fs");
 const path = require('path');
 const data = JSON.parse(fs.readFileSync( path.resolve(__dirname,"../data.json")));
 const productdata = data.products;
+
+const ejs = require('ejs');
 // console.log(productdata)
 
 //mongoose
@@ -26,6 +28,14 @@ exports.addProduct = async (req, res) => {
 exports.getAllProducts = async (req, res) => {
   const products = await Product.find();
   res.json(products);
+};
+
+exports.getAllProductsSSR = async (req, res) => {
+  const products = await Product.find();
+  ejs.renderFile(path.resolve(__dirname,'../pages/index.ejs'), {product:products[0]}, options, function(err, str){
+    // str => Rendered HTML string
+    res.send(str);
+});
 };
 
 exports.getProduct = async (req, res) => {

@@ -27,6 +27,7 @@ const auth = ((req,res,next)=>{
 
 router
   .get("/", productController.getAllProducts)
+  .get("/ssr",productController.getAllProductsSSR)
   .get("/:id", productController.getProduct)
   .post("/", productController.addProduct)
   .put("/:id", productController.replaceProduct)
