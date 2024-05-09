@@ -6,12 +6,16 @@
     <title>Product</title>
 </head>
 <body>
-    <% if (product) { %> 
-    <h1>Product Detail</h1>
-    <img src = "<%= product.thumbnail%> "/>
-    <h2><%= product.title %> </h2>
-    <h3><%= product.brand %> </h3>
-    <h3><span>$</span><%= product.rating %> </h3>
+    <% for (let product of products) { %> 
+        <% if (product) { %> 
+        <h1>Product Detail</h1>
+        <img src = "<%= product.thumbnail%> "/>
+        <h2><%= product.title %> </h2>
+        <h3><%= product.brand %> </h3>
+        <h3><span>$</span>
+            <%= product.rating %>
+        </h3>
+        <% } %> 
     <% } %> 
 </body>
 </html>
