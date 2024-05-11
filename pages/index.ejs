@@ -15,7 +15,14 @@
         <h3><span>$</span>
             <%= product.rating %>
         </h3>
+        <button onclick="deleteProduct('<% = product._id %>')">Delete</button>
         <% } %> 
     <% } %> 
+
+    <script>
+        function deleteProduct(product){
+            console.log(product);
+        }
+    </script>
 </body>
 </html>
