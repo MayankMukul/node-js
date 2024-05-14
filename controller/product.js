@@ -39,6 +39,14 @@ exports.getAllProductsSSR = async (req, res) => {
 });
 };
 
+exports.getAddformProduct = async (req, res) => {
+  
+  ejs.renderFile(path.resolve(__dirname,'../pages/add.ejs'), function(err, str){
+    // str => Rendered HTML string
+    res.send(str);
+});
+};
+
 exports.getProduct = async (req, res) => {
   const id = req.params.id;
   console.log(id)
