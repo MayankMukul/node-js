@@ -9,7 +9,7 @@
     
   <div className='w-1/2 m-auto p-2 bg-slate-100 rounded '>
     <h1 className='bg-black text-white p-2 rounded'>Add Product Detail</h1>
-    <form className='m-auto p-3 flex flex-col ' >
+    <form className='m-auto p-3 flex flex-col ' method="post" action="/products" enctype="application/x-www-form-urlencoded">
       <label htmlFor="title">Title :</label>
       <input className='border  m-1 p-1' type="text" id="title" name="title" placeholder='Title here...'   required/>
       <label htmlFor="brand">Brand :</label>

@@ -22,6 +22,7 @@ const server = express();
 //built-in middleware
 server.use(cors());
 server.use(express.json())
+server.use(express.urlencoded())
 
 server.use(express.static(path.resolve(__dirname,'build')));
 server.use('/products',productRouter.router);
