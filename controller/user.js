@@ -20,16 +20,14 @@ exports.getUser = async (req, res) => {
   res.json(user);
 };
 
-exports.createUser = (req, res) => {
+exports.createUser = async (req, res) => {
 
   const user = new User(req.body);
-  user.save((err, doc)=>{
-    console.log({err,doc});
-    if(err){
-      res.status(400).json(err);
-    }else{
-      res.status(200).json(doc);
-    }
+  await user.save().then(doc=>{
+    console.log(doc)
+    res.status(200).json(doc)
+  }).catch(err=>{
+    res.status(400).json(err);
   })
   
 };
