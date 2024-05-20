@@ -5,6 +5,8 @@ const cors = require('cors');
 const path = require('path');
 require("dotenv").config();
 
+const jwt = require('jsonwebtoken');
+
 // 
 //password
 const productRouter = require('./routes/product.js')
@@ -19,7 +21,15 @@ console.log("Connected to MongoDB successfully!");
 
 
 const server = express();
-//built-in middleware
+//built-in middlewar
+server.use((req, res, next)=>{
+  const token = req.get('Authorization').split("Bearer ")[1];
+  console.log(token)
+  var decoded = jwt.verify(token, process.env.SECRET_KEY);
+  console.log(decoded);
+})
+
+
 server.use(cors());
 server.use(express.json())
 server.use(express.urlencoded())
