@@ -25,8 +25,21 @@ const server = express();
 server.use((req, res, next)=>{
   const token = req.get('Authorization').split("Bearer ")[1];
   console.log(token)
-  var decoded = jwt.verify(token, process.env.SECRET_KEY);
-  console.log(decoded);
+
+  try{
+    let decoded = jwt.verify(token, process.env.SECRET_KEY);
+    // console.log(decoded);
+    if(decoded.email){
+      next();
+    }else{
+      res.sendStatus(401);
+    }
+  }catch(err){
+    res.sendStatus(401);
+
+    }
+
+  
 })
 
 
