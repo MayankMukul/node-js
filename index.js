@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
 require("dotenv").config();
+const authRouter = require('./routes/auth');
 
 const jwt = require('jsonwebtoken');
 
@@ -22,7 +23,8 @@ console.log("Connected to MongoDB successfully!");
 
 const server = express();
 //built-in middlewar
-server.use((req, res, next)=>{
+
+const auth = (req, res, next)=>{
   const token = req.get('Authorization').split("Bearer ")[1];
   console.log(token)
 
@@ -40,16 +42,17 @@ server.use((req, res, next)=>{
     }
 
   
-})
+}
 
 
 server.use(cors());
 server.use(express.json())
-server.use(express.urlencoded())
+server.use(express.urlencoded());
 
 server.use(express.static(path.resolve(__dirname,'build')));
-server.use('/products',productRouter.router);
-server.use('/users',userRouter.router);
+server.use('/auth', authRouter.createUser)
+server.use('/products', auth, productRouter.router);
+server.use('/users',auth, userRouter.router);
 server.use('*', (req,res)=>{
   res.sendFile(path.resolve(__dirname,'build', 'index.html'));
 });
