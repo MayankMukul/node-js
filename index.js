@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
 require("dotenv").config();
-const authRouter = require('./routes/auth');
+const authRouter = require('./routes/auth.js');
 
 const jwt = require('jsonwebtoken');
 
@@ -47,10 +47,10 @@ const auth = (req, res, next)=>{
 
 server.use(cors());
 server.use(express.json())
-server.use(express.urlencoded());
+server.use(express.urlencoded()); 
 
 server.use(express.static(path.resolve(__dirname,'build')));
-server.use('/auth', authRouter.createUser)
+server.use('/auth', authRouter.router)
 server.use('/products', auth, productRouter.router);
 server.use('/users',auth, userRouter.router);
 server.use('*', (req,res)=>{
