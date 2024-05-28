@@ -25,10 +25,10 @@ const server = express();
 //built-in middlewar
 
 const auth = (req, res, next)=>{
-  const token = req.get('Authorization').split("Bearer ")[1];
-  console.log(token)
-
+  
   try{
+    const token = req.get('Authorization').split("Bearer ")[1];
+    console.log(token)
     let decoded = jwt.verify(token, process.env.SECRET_KEY);
     // console.log(decoded);
     if(decoded.email){
