@@ -6,6 +6,9 @@ const path = require('path');
 require("dotenv").config();
 const authRouter = require('./routes/auth.js');
 
+const fs = require('fs');
+const publickey = fs.readFileSync(path.resolve(__dirname,'./public.key'),'utf-8');
+
 const jwt = require('jsonwebtoken');
 
 // 
@@ -29,7 +32,7 @@ const auth = (req, res, next)=>{
   try{
     const token = req.get('Authorization').split("Bearer ")[1];
     console.log(token)
-    let decoded = jwt.verify(token, process.env.SECRET_KEY);
+    let decoded = jwt.verify(token, publickey);
     // console.log(decoded);
     if(decoded.email){
       next();
