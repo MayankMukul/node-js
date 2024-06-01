@@ -26,8 +26,14 @@ exports.addProduct = async (req, res) => {
 
 //read
 exports.getAllProducts = async (req, res) => {
-  const products = await Product.find();
-  res.json(products);
+  const query =  Product.find();
+  if(req.query && req.query.sort){
+    const products = await query.sort({price:req.query.sort}).exec();  
+    res.json(products);
+  }else{
+    const products = await query.exec();
+    res.json(products);
+  }
 };
 
 exports.getAllProductsSSR = async (req, res) => {
