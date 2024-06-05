@@ -27,9 +27,14 @@ exports.addProduct = async (req, res) => {
 //read
 exports.getAllProducts = async (req, res) => {
   const query =  Product.find();
+  let pageSize = 4;
+  let page = req.query.page;
   if(req.query && req.query.sort){
     // api https://localhost:8080/products?sort=price&order=desc&limit=2
     const products = await query.sort({[req.query.sort]:req.query.order}).limit(req.qurey.limit).exec();  
+    res.json(products);
+  }else if(req.query.page){
+    const products = await query.skip(pageSize*(page-1)).limit(pageSize).exec();  
     res.json(products);
   }else{
     const products = await query.exec();
