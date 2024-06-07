@@ -1,4 +1,4 @@
-
+require('./events')
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -25,6 +25,11 @@ console.log("Connected to MongoDB successfully!");
 
 
 const server = express();
+//socket.io
+const app = require('http').createServer(server);
+const io = require('socket.io')(app);
+
+
 //built-in middlewar
 
 const auth = (req, res, next)=>{
@@ -69,9 +74,11 @@ server.use((req,res,next)=>{
 })
 
 
+io.on('connection',(socket)=>{
+    console.log(socket.id)
+})
 
 
-
-server.listen(process.env.PORT,()=>{
+app.listen(process.env.PORT,()=>{
     console.log("server started");
 })
