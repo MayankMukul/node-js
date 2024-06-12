@@ -76,7 +76,17 @@ server.use((req,res,next)=>{
 
 io.on('connection',(socket)=>{
     console.log(socket.id)
+
+    socket.on('msg',(data)=>{
+      console.log(data)
+    })
+
+    setTimeout(()=>{
+      socket.emit('servermsg',{server: 'hi'})
+    },4000);
 })
+
+
 
 
 app.listen(process.env.PORT,()=>{

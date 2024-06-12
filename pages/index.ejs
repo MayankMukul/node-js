@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        setTimeout(()=>{
+            socket.emit('msg',{player:'one'})
+        },6000)
+        socket.on('servermsg',(data)=>{
+            console.log(data)
+        })
+    </script>
 </head>
 <body>
     <% for (let product of products) { %> 
